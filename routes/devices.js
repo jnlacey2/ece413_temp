@@ -189,19 +189,19 @@ router.post('/register', function(req, res, next) {
 });
 
 router.get('/getdata', function(req, res, next) {
-	var htmlString = "";
-	var returnData = {};
-	returnData["deviceReports"] = [];
-	var theDeviceIDs = req.query.theID;
-	console.log("gettingData");
-	//one registered device ID should be passed over at a time. Start a new table row here?
+	var returnData = {};	
+	returnData["deviceReports"] = [];		
+	var theDeviceIDs = req.query.theID;		//extract the deviceID array from the query
+	//loop through all deviceID’s associated with the user
 	for (var aDeviceID of theDeviceIDs) {
-		console.log(aDeviceID);
-	
 	   	DeviceReport.find({deviceID: aDeviceID})
-         	.exec()
+         		.exec()
 		.then(docs => {
+				//loop through each deviceReport associated with the current
+				//deviceID and add parts of them to the return object
  				for(var doc of docs) {
+					//create a report object that takes in specific data from any 
+					//associated deviceReports that were found
 					var singleReport = {
 						 "deviceID": doc.deviceID,
     						 "GPS_lat": doc.GPS_lat,
@@ -210,21 +210,16 @@ router.get('/getdata', function(req, res, next) {
    						 "uvLevel": doc.uvLevel,
   						 "session": doc.session
 					};
-					
-					returnData["deviceReports"].push(singleReport);
-				
-					
-					console.log(singleReport);
-					console.log(doc.uvLevel);
+					//add that new report object to the returnData’s array
+					returnData["deviceReports"].push(singleReport);	
 				}
-					
-				console.log("hello world");
-				console.log(JSON.stringify(returnData));
-				return res.status(200).json(JSON.stringify(returnData));
-		
+			
 		});
-	
 	}
+	//return completed data structure containing all device reports associated with the User’s
+	//devices
+	setTimeout(function(){return res.status(200).json(JSON.stringify(returnData))}, 500);
+	
 	
 	
 });

@@ -20,7 +20,7 @@
 9 verbose stack     at maybeClose (internal/child_process.js:827:16)
 9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 10 verbose pkgid eceserver18@0.0.0
-11 verbose cwd /home/ec2-user/my_server/realDeal
+11 verbose cwd /home/ec2-user/my_server/tester
 12 error Linux 4.14.62-65.117.amzn1.x86_64
 13 error argv "/home/ec2-user/.nvm/versions/node/v4.4.5/bin/node" "/home/ec2-user/.nvm/versions/node/v4.4.5/bin/npm" "start"
 14 error node v4.4.5
